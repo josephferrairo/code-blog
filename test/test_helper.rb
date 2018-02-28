@@ -3,8 +3,6 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
-  fixtures :all
-
   def setup
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
