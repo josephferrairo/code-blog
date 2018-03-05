@@ -5,7 +5,7 @@
 </p>
 
 <p>
-  <%= @post.body %>
+  <%= raw(@post.body) %>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
