@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :find_post, only: [:edit, :update, :show, :delete]
+  before_action :find_post, only: [:edit, :update, :show]
+  before_action :authenticate_user!, only: [:create, :new, :edit, :update]
 
   def index
     @posts = Post.all
@@ -10,7 +11,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
     if @post.save
       flash[:notice] = "Successfully created post!"
       redirect_to post_path(@post)
@@ -24,6 +25,10 @@ class PostsController < ApplicationController
   end
 
   def update
+    if @post.user != current_user
+      flash[:alert] = "You are not authorized to edit this post"
+    end
+
     if @post.update_attributes(post_params)
       flash[:notice] = "Successfully updated post!"
       redirect_to post_path(@post)

@@ -1,6 +1,13 @@
 require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
+  setup do
+    @user = FactoryBot.create(:user)
+    sign_in @user
+  end
+
   test 'index will return success' do
     get posts_path
     assert_response :success
@@ -64,5 +71,18 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_equal(1, Post.count)
     assert_equal('new title', post.title)
     assert_equal('new body', post.body)
+  end
+
+  test "a user cannot update another user's post" do
+    post_user = FactoryBot.create(:user)
+    post = FactoryBot.create(:post, title: 'title', body: 'body', user: post_user)
+    new_post_params = { post: { title: 'new title', body: 'new body' } }
+    assert_equal(1, Post.count)
+
+    post.reload
+    patch post_path(post), params: new_post_params
+    assert_equal(1, Post.count)
+    assert_equal('title', post.title)
+    assert_equal('body', post.body)
   end
 end
