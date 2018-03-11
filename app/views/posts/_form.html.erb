@@ -1,12 +1,15 @@
-<%= simple_form_for(@post) do |f| %>
-  <%= f.error_notification %>
+<div class="col-md-11 centerizer booyah-box">
+  <%= simple_form_for(@post) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :title %>
-    <%= f.trix_editor :body %>
-  </div>
+    <div class="form-inputs">
+      <%= f.input :title %>
+      <%= f.trix_editor :body, class: "white-background" %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="form-actions">
+      <%= f.button :submit, class: "btn btn-primary" %>
+      <%= link_to 'Back', posts_path, class: "btn btn-danger" %>
+    <% end %>
   </div>
-<% end %>
+</div>

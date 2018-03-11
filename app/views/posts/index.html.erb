@@ -1,23 +1,11 @@
-<p id="notice"><%= notice %></p>
+<h2 class="text-center">Posts</h2>
+<div class="col-xs-10 col-md-4 centerizer booyah-box">
 
-<h1>Posts</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
     <% @posts.each do |post| %>
-      <tr>
-        <td><%= link_to post.title, post %></td>
-      </tr>
+      <ul>
+        <li><%= link_to post.title, post %></li>
+        </ul>
     <% end %>
-  </tbody>
-</table>
-
+</div>
 <br>
 
