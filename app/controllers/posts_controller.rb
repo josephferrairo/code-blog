@@ -27,9 +27,8 @@ class PostsController < ApplicationController
   def update
     if @post.user != current_user
       flash[:alert] = "You are not authorized to edit this post"
-    end
-
-    if @post.update_attributes(post_params)
+    elsif @post.user = current_user
+      @post.update_attributes(post_params)
       flash[:notice] = "Successfully updated post!"
       redirect_to post_path(@post)
     else

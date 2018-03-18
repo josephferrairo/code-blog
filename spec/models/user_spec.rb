@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User' do
+describe User do
   it 'A user has many posts' do
     user = FactoryBot.create(:user)
     FactoryBot.create(:post, user: user)

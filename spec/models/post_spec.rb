@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe 'posts' do
+describe Post do
   it 'Body and title cannot be blank' do
     post = Post.new
     expect(post).to_not be_valid
