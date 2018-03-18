@@ -1,0 +1,7 @@
+<div class="col-md-11 centerizer booyah-box">
+  <% @users.each do |user| %>
+    <ul>
+      <li><%= link_to user.email, profile_path(user) %></li>
+    </ul>
+  <% end %>
+</div>
