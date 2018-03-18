@@ -26,6 +26,8 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.8.2'
   gem 'pry', '~> 0.11.3'
   gem 'awesome_print', '~> 1.8.0'
+  gem 'chromedriver-helper'
+  gem 'rspec-rails', '~> 3.7'
 end
 
 group :development do
