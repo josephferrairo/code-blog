@@ -58,6 +58,7 @@ describe PostsController do
 
       post = Post.last
       expect(response).to redirect_to(post_path(post))
+      expect(flash[:notice]).to eq('Successfully created post!')
 
       expect(Post.count).to eq(1)
       expect(post.title).to eq('title')
@@ -85,6 +86,7 @@ describe PostsController do
 
       patch :update, params: { id: post.id, post: new_post_params }
 
+      expect(response).to redirect_to(post_path(post))
       post.reload
       expect(Post.count).to eq(1)
       expect(post.title).to eq('new title')
