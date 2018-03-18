@@ -28,6 +28,7 @@ group :development, :test do
   gem 'awesome_print', '~> 1.8.0'
   gem 'chromedriver-helper'
   gem 'rspec-rails', '~> 3.7'
+  gem 'guard-rspec', require: false
 end
 
 group :development do
@@ -35,8 +36,6 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'guard', '~> 2.14.2'
-  gem 'guard-minitest', '~> 2.4.6'
 end
 
 group :test do
