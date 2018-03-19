@@ -26,11 +26,12 @@ describe PostsController do
     end
   end
 
-  describe 'GET show'
-  it 'show will return success' do
-    post = FactoryBot.create(:post)
-    get :show, params: { id: post.id }
-    expect(response).to have_http_status(:success)
+  describe 'GET show' do
+    it 'show will return success' do
+      post = FactoryBot.create(:post)
+      get :show, params: { id: post.id }
+      expect(response).to have_http_status(:success)
+    end
   end
 
   describe 'GET edit' do

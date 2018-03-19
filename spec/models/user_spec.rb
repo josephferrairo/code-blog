@@ -9,6 +9,18 @@ describe User do
 
       expect(user.posts.count).to eq(2)
     end
+
+    it 'creates a blank profile when the user is created' do
+      user = FactoryBot.create(:user)
+      expect(user.profile).not_to be_nil
+    end
+
+    it 'has_one profile' do
+      user = FactoryBot.create(:user)
+      profile = FactoryBot.create(:profile, user: user)
+      expect(profile.user).to eq(user)
+    end
+
     it 'creates a valid user' do
       user = User.new(first_name: 'John',
                       last_name: 'Smith',
@@ -32,6 +44,5 @@ describe User do
         expect(user.full_name).to eq('Joe Smith')
       end
     end
-
   end
 end
