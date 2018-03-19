@@ -19,6 +19,7 @@
   <ul class="nav navbar-nav navbar-right">
     <% if user_signed_in? %>
       <li><%= link_to 'Create a New Post', new_post_path, class: "nav-item nav-link active" %></li>
+      <li><%= link_to 'Edit your profile', edit_profile_path(current_user.profile), class: "nav-item nav-link active" %></li>
       <li><%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-item nav-link active" %></li>
     <% else %>
       <li><%= link_to "Sign in", new_user_session_path, class: "nav-item nav-link active" %></li>

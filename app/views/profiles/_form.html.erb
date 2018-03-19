@@ -1,0 +1,17 @@
+<div class="col-md-11 centerizer booyah-box">
+  <%= simple_form_for(@profile) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :web_browser %>
+      <%= f.input :text_editor %>
+      <%= f.input :terminal %>
+      <%= f.trix_editor :biography, class: "white-background" %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, class: "btn btn-primary" %>
+      <%= link_to 'Back', profiles_path, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>
