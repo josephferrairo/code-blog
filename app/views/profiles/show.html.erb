@@ -1,7 +1,23 @@
 <div class="col-md-11 centerizer booyah-box">
 
   <p>
-    <h2 class="text-center"> <%= @profile.full_name %> </h2>
+    <h2 class="text-center"> <%= @profile.user.full_name %> </h2>
+  </p>
+
+  <p>
+    <%= raw(@profile.biography) %>
+  </p>
+
+  <p>
+    <%= @profile.web_browser %>
+  </p>
+
+  <p>
+    <%= @profile.terminal %>
+  </p>
+
+  <p>
+    <%= @profile.text_editor %>
   </p>
 
   <%= link_to 'Back', profiles_path, class: "btn btn-danger" %>

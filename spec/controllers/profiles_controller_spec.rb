@@ -43,6 +43,7 @@ describe ProfilesController do
                                   web_browser: 'Chrome',
                                   text_editor: 'Vim',
                                   terminal: 'terminal')
+
       new_profile_params = FactoryBot.attributes_for(:profile,
                                                      biography: 'I did another thing',
                                                      web_browser: 'Firefox',
@@ -72,12 +73,12 @@ describe ProfilesController do
                                   web_browser: 'Chrome',
                                   text_editor: 'Vim',
                                   terminal: 'terminal')
+
       new_profile_params = FactoryBot.attributes_for(:profile,
                                                      biography: 'I did another thing',
                                                      web_browser: 'Firefox',
                                                      text_editor: 'Neovim',
-                                                     terminal: 'iterm2'
-                                                    )
+                                                     terminal: 'iterm2')
       expect(Profile.count).to eq(1)
 
       patch :update, params: { id: profile.id, profile: new_profile_params }
