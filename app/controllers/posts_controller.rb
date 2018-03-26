@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :find_post, only: [:edit, :update, :show]
+  before_action :find_post, only: [:edit, :update, :show, :destroy]
   before_action :authenticate_user!, only: [:create, :new, :edit, :update]
 
   def index
@@ -38,6 +38,14 @@ class PostsController < ApplicationController
   end
 
   def show
+  end
+
+  def destroy
+    if current_user == @post.user
+      @post.destroy!
+    else
+      flash[:alert] = "You cannot delete other people's posts"
+    end
   end
 
   private

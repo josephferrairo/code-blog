@@ -26,8 +26,9 @@ RSpec.describe LikesController, type: :controller do
       post1 = FactoryBot.create(:post)
       like = FactoryBot.create(:like, user: user, post: post1)
       expect(Like.count).to eq(1)
+      like_params =  { post_id: post1.id, user: user.id, id: like.id}
 
-      expect { delete :destroy, params: { post_id: post1.id, user: user.id, id: like.id} }.to change(Like, :count).by(-1)
+      expect { delete :destroy, params: like_params  }.to change(Like, :count).by(-1)
     end
 
     it "cannot destroy someone else's like" do

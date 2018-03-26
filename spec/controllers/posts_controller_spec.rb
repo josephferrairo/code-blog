@@ -109,4 +109,27 @@ RSpec.describe PostsController, type: :controller do
       expect(post.body).to eq('body')
     end
   end
+
+  describe 'destroy' do
+    it 'will destroy its own post' do
+      user = FactoryBot.create(:user)
+      login_user(user)
+      post = FactoryBot.create(:post, user: user)
+      expect(Post.count).to eq(1)
+      post_params =  { user: user.id, id: post.id}
+
+      expect { delete :destroy, params: post_params }.to change(Post, :count).by(-1)
+    end
+
+    it "cannot destroy someone else's like" do
+      user = FactoryBot.create(:user)
+      other_user = FactoryBot.create(:user)
+      login_user(user)
+      post = FactoryBot.create(:post, user: other_user)
+      expect(Post.count).to eq(1)
+
+      expect { delete :destroy, params: { user: user.id, id: post.id} }.to change(Post, :count).by(0)
+      expect(flash[:alert]).to eq("You cannot delete other people's posts")
+    end
+  end
 end
