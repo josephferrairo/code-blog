@@ -44,5 +44,22 @@ describe User do
         expect(user.full_name).to eq('Joe Smith')
       end
     end
+
+    describe 'liked?' do
+      it 'will return the post if a user liked it' do
+        user = FactoryBot.create(:user)
+        post = FactoryBot.create(:post)
+        like = FactoryBot.create(:like, user: user, post: post)
+
+        expect(user.liked?(post)).to eq(like)
+      end
+
+      it 'will return nil if a user did not like a post' do
+        user = FactoryBot.create(:user)
+        post = FactoryBot.create(:post)
+
+        expect(user.liked?(post)).to eq(nil)
+      end
+    end
   end
 end

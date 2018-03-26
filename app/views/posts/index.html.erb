@@ -1,11 +1,13 @@
 <h2 class="text-center">Posts</h2>
 <div class="col-xs-10 col-md-4 centerizer booyah-box">
 
-    <% @posts.each do |post| %>
-      <ul>
-        <li><%= link_to post.title, post %></li>
-        </ul>
-    <% end %>
+  <% @posts.each do |post| %>
+    <ul>
+      <li><%= link_to post.title, post %></li>
+      <%= render partial: "likes/button", locals: { post: post } %>
+      <%= post.like_count %>
+    </ul>
+  <% end %>
 </div>
 <br>
 
