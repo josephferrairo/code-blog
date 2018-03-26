@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe PostsController do
+RSpec.describe PostsController, type: :controller do
   before(:each) do
     @user = FactoryBot.create(:user)
   end

@@ -18,6 +18,7 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'simple_form', '~> 3.5.1'
 gem 'trix', '~> 0.11.1'
 gem 'devise', '~> 4.4.1'
+gem 'octicons_helper'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

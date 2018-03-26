@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :posts
   has_one :profile
+  has_many :likes, dependent: :destroy
   validates :first_name, :last_name, presence: true
   after_create :create_profile
 
@@ -14,5 +15,9 @@ class User < ApplicationRecord
 
   def create_profile
     Profile.new(user: self)
+  end
+
+  def liked?(post)
+    self.likes.find_by_post_id(post.id)
   end
 end
