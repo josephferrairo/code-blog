@@ -31,13 +31,4 @@ RSpec.describe 'User Manages Biography', type: :system do
     expect(page).to have_content(profile.text_editor)
     expect(page).to have_content(profile.terminal)
   end
-
-  def fill_in_trix_editor(text="Added Text")
-    execute_script("document.querySelector('trix-editor').editor.loadHTML('')")
-    execute_script("document.querySelector('trix-editor').editor.insertString('#{text}')")
-  end
-
-  def strip_html(string)
-    Nokogiri::HTML(string).text
-  end
 end

@@ -19,12 +19,4 @@ RSpec.describe 'User Manages Posts', type: :system do
     expect(page).to have_content(post.title)
     expect(page).to have_content(strip_html(post.body))
   end
-
-  def fill_in_trix_editor(text="Added Text")
-    execute_script("document.querySelector('trix-editor').editor.insertString('#{text}')")
-  end
-
-  def strip_html(string)
-    Nokogiri::HTML(string).text
-  end
 end
