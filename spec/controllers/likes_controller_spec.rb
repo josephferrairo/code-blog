@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe LikesController, type: :controller do
-
   describe 'POST create' do
     it 'will create a like' do
       user = FactoryBot.create(:user)

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe 'User Manages Biography' do
+RSpec.describe 'User Manages Biography', type: :system do
   it 'updates their biography' do
     user = FactoryBot.create(:user)
     FactoryBot.create(:profile, user: user)

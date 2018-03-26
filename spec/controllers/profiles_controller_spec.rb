@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ProfilesController do
+RSpec.describe ProfilesController, type: :controller do
   describe "GET index" do
     it 'will return success' do
       get :index

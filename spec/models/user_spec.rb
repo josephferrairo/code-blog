@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User do
+RSpec.describe User, type: :model do
   describe 'User attributes / validations' do
     it 'has many posts' do
       user = FactoryBot.create(:user)

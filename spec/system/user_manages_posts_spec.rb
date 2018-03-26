@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe 'User Manages Posts' do
+RSpec.describe 'User Manages Posts', type: :system do
   it 'creates a post' do
     user = FactoryBot.create(:user)
     login_as(user, scope: :user)

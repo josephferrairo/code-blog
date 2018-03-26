@@ -1,6 +1,6 @@
 require "rails_helper"
 
-FactoryBot.describe Post do
+RSpec.describe Post, type: :model do
   describe 'post' do
     it 'cannot have a blank body, title, or user' do
       post = Post.new

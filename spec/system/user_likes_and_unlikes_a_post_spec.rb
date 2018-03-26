@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe 'User Likes and Unlikes Posts' do
+RSpec.describe 'User Likes and Unlikes Posts', type: :system do
   it 'likes a post' do
     user = FactoryBot.create(:user)
     post = FactoryBot.create(:post)
