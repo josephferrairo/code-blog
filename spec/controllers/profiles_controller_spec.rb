@@ -91,5 +91,32 @@ RSpec.describe ProfilesController, type: :controller do
       expect(profile.terminal).to eq('terminal')
       expect(flash[:alert]).to eq('This is not you!')
     end
+
+    it 'must be logged in' do
+      profile_user = FactoryBot.create(:user)
+      profile = FactoryBot.create(:profile,
+                                  user: profile_user,
+                                  biography: 'I did a thing',
+                                  web_browser: 'Chrome',
+                                  text_editor: 'Vim',
+                                  terminal: 'terminal')
+
+      new_profile_params = FactoryBot.attributes_for(:profile,
+                                                     biography: 'I did another thing',
+                                                     web_browser: 'Firefox',
+                                                     text_editor: 'Neovim',
+                                                     terminal: 'iterm2')
+      expect(Profile.count).to eq(1)
+
+      patch :update, params: { id: profile.id, profile: new_profile_params }
+      assert_redirected_to new_user_session_path
+
+      profile.reload
+      expect(Profile.count).to eq(1)
+      expect(profile.biography).to eq('I did a thing')
+      expect(profile.web_browser).to eq('Chrome')
+      expect(profile.text_editor).to eq('Vim')
+      expect(profile.terminal).to eq('terminal')
+    end
   end
 end
