@@ -7,6 +7,7 @@ class ProfilesController < ApplicationController
   end
 
   def show
+    @posts = @profile.user.posts
   end
 
   def edit
