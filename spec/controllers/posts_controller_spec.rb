@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe PostsController, type: :controller do
-  before(:each) do
-    @user = FactoryBot.create(:user)
-  end
-
   describe "GET index" do
     it 'will return success' do
       get :index
@@ -14,7 +10,8 @@ RSpec.describe PostsController, type: :controller do
 
   describe 'GET new' do
     it 'new will return success if a user is logged in' do
-      login_user(@user)
+      user = FactoryBot.create(:user)
+      login_user(user)
       get :new
       expect(response).to have_http_status(:success)
     end
@@ -22,7 +19,6 @@ RSpec.describe PostsController, type: :controller do
     it 'will redirect a user to the sign_in path if a user is not signed in' do
       get :new
       expect(response).to redirect_to(new_user_session_path)
-      expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
     end
   end
 
@@ -36,8 +32,9 @@ RSpec.describe PostsController, type: :controller do
 
   describe 'GET edit' do
     it 'edit will return success' do
+      user = FactoryBot.create(:user)
+      login_user(user)
       post = FactoryBot.create(:post)
-      login_user(@user)
       get :edit, params: { id: post.id }
       expect(response).to have_http_status(:success)
     end
@@ -51,7 +48,8 @@ RSpec.describe PostsController, type: :controller do
 
   describe 'POST create' do
     it 'creates a new post' do
-      login_user(@user)
+      user = FactoryBot.create(:user)
+      login_user(user)
       expect(Post.count).to eq(0)
 
       post_params = { post: { title: 'title', body: 'body' } }
@@ -74,14 +72,14 @@ RSpec.describe PostsController, type: :controller do
 
       expect(Post.count).to eq(0)
       expect(response).to redirect_to(new_user_session_path)
-      expect(flash[:alert]).to eq('You need to sign in or sign up before continuing.')
     end
   end
 
   describe 'PATCH update' do
     it 'should get a successful update request and not create a new post' do
-      login_user(@user)
-      post = FactoryBot.create(:post, title: 'title', body: 'body', user: @user)
+      user = FactoryBot.create(:user)
+      login_user(user)
+      post = FactoryBot.create(:post, title: 'title', body: 'body', user: user)
       new_post_params = FactoryBot.attributes_for(:post, title: 'new title', body: 'new body')
       expect(Post.count).to eq(1)
 
@@ -95,7 +93,8 @@ RSpec.describe PostsController, type: :controller do
     end
 
     it "cannot update another user's posts" do
-      login_user(@user)
+      user = FactoryBot.create(:user)
+      login_user(user)
       post_user = FactoryBot.create(:user)
       post = FactoryBot.create(:post, title: 'title', body: 'body', user: post_user)
       new_post_params = FactoryBot.attributes_for(:post, title: 'new title', body: 'new body')
@@ -116,7 +115,7 @@ RSpec.describe PostsController, type: :controller do
       login_user(user)
       post = FactoryBot.create(:post, user: user)
       expect(Post.count).to eq(1)
-      post_params =  { user: user.id, id: post.id}
+      post_params =  { id: post.id }
 
       expect { delete :destroy, params: post_params }.to change(Post, :count).by(-1)
     end
@@ -128,8 +127,17 @@ RSpec.describe PostsController, type: :controller do
       post = FactoryBot.create(:post, user: other_user)
       expect(Post.count).to eq(1)
 
-      expect { delete :destroy, params: { user: user.id, id: post.id} }.to change(Post, :count).by(0)
+      expect { delete :destroy, params: { id: post.id} }.to change(Post, :count).by(0)
       expect(flash[:alert]).to eq("You cannot delete other people's posts")
+    end
+
+    it 'needs to be signed in' do
+      user = FactoryBot.create(:user)
+      post = FactoryBot.create(:post, user: user)
+      expect(Post.count).to eq(1)
+
+      expect { delete :destroy, params: { id: post.id} }.to change(Post, :count).by(0)
+      expect(response).to redirect_to(new_user_session_path)
     end
   end
 end

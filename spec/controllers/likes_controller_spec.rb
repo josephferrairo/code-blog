@@ -27,7 +27,7 @@ RSpec.describe LikesController, type: :controller do
       like_params = { post_id: post1.id, user_id: user.id }
       post :create, params: like_params
 
-      assert_redirected_to new_user_session_path
+      expect(response).to redirect_to(new_user_session_path)
       expect(Like.count).to eq(0)
     end
   end
@@ -66,7 +66,7 @@ RSpec.describe LikesController, type: :controller do
 
       delete :destroy, params: like_params
 
-      assert_redirected_to new_user_session_path
+      expect(response).to redirect_to(new_user_session_path)
       expect(Like.count).to eq(1)
     end
   end

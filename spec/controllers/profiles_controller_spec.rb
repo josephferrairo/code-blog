@@ -109,7 +109,7 @@ RSpec.describe ProfilesController, type: :controller do
       expect(Profile.count).to eq(1)
 
       patch :update, params: { id: profile.id, profile: new_profile_params }
-      assert_redirected_to new_user_session_path
+      expect(response).to redirect_to(new_user_session_path)
 
       profile.reload
       expect(Profile.count).to eq(1)
